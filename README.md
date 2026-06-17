@@ -8,7 +8,7 @@ Upload your resume PDF, compare it with a job description, and instantly discove
 
 ## 🌐 Live Demo
 
-🔗 Vercel: https://your-vercel-url.vercel.app
+🔗 Vercel: https://resume-skill-gap-analyzer-2xyx.vercel.app/
 
 ---
 
