@@ -1,36 +1,176 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Resume Skill Gap Analyzer
 
-## Getting Started
+A free AI-inspired Resume Skill Gap Analyzer built with **Next.js, TypeScript, Tailwind CSS, React-PDF, and PDF.js**.
 
-First, run the development server:
+Upload your resume PDF, compare it with a job description, and instantly discover your ATS score, matched skills, missing skills, and improvement areas.
+
+---
+
+## 🌐 Live Demo
+
+🔗 Vercel: https://your-vercel-url.vercel.app
+
+---
+
+## 📸 Preview
+
+<img width="100%" alt="Resume Skill Gap Analyzer" src="https://via.placeholder.com/1200x600?text=Resume+Skill+Gap+Analyzer" />
+
+---
+
+## ✨ Features
+
+* 📄 Upload Resume PDF
+* 👀 Resume PDF Preview
+* 📝 Automatic Resume Text Extraction
+* 💼 Paste Job Description
+* 📊 ATS Match Score Calculation
+* ✅ Matched Skills Detection
+* ❌ Missing Skills Identification
+* 💡 Improvement Suggestions
+* 📥 Downloadable Analysis Report
+* 🌙 Modern Responsive UI
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* Next.js 16
+* React
+* TypeScript
+* Tailwind CSS
+
+### PDF Processing
+
+* React-PDF
+* PDF.js
+
+### Utilities
+
+* Custom ATS Scoring Algorithm
+* Resume Text Extraction
+* Skills Matching Engine
+
+---
+
+## ⚙️ How It Works
+
+```text
+Upload Resume PDF
+        ↓
+Preview Resume
+        ↓
+Extract Resume Text
+        ↓
+Paste Job Description
+        ↓
+Analyze Skills
+        ↓
+Generate ATS Score
+        ↓
+Show Matched Skills
+        ↓
+Show Missing Skills
+        ↓
+Provide Suggestions
+```
+
+---
+
+## 📂 Project Structure
+
+```text
+resume-skill-gap-analyzer
+│
+├── app
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
+│
+├── components
+│   ├── ProgressRing.tsx
+│   └── SkillBadge.tsx
+│
+├── data
+│   └── skills.ts
+│
+├── types
+│   └── result.ts
+│
+├── utils
+│   └── analyzer.ts
+│
+├── public
+│
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+---
+
+## 🚀 Getting Started
+
+### Clone Repository
+
+```bash
+git clone https://github.com/AmarDeepCodesAI/resume-skill-gap-analyzer.git
+cd resume-skill-gap-analyzer
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🎯 Why I Built This
 
-To learn more about Next.js, take a look at the following resources:
+While applying for jobs, I often needed a quick way to check whether my resume matched a job description and which skills were missing. Most available tools were paid, complicated, or required sign-ups.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+I built this free tool to make resume analysis simple, fast, and accessible.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ✅ Requirements Completed
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Working online tool
+* Produces real output
+* Built using free tools only
+* Deployed on Vercel Free Hobby Plan
+* Public GitHub repository
+* Built for Digital Heroes button included
+* Full name and email visible on the application
+* ₹0 spent on development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 👨‍💻 Author
+
+**Amar Deep**
+
+📧 Email: [amard0819@gmail.com](mailto:amard0819@gmail.com)
+
+🔗 GitHub: https://github.com/AmarDeepCodesAI
+
+🔗 LinkedIn: https://www.linkedin.com/in/amard0819/
+
+---
+
+## ⭐ If you found this project useful, please consider giving it a star on GitHub.
