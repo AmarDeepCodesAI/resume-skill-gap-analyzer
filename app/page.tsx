@@ -1,42 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
+import { useState } from "react";
 import ProgressRing from "../components/ProgressRing";
 import SkillBadge from "../components/SkillBadge";
 import { analyzeResumeSkills } from "../utils/analyzer";
 import { Result } from "../types/result";
-import "react-pdf/dist/Page/TextLayer.css";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-
-pdfjs.GlobalWorkerOptions.workerSrc =
-  `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 export default function Home() {
   const [resume, setResume] = useState("");
   const [jd, setJd] = useState("");
   const [result, setResult] = useState<Result | null>(null);
-
   const [resumeFile, setResumeFile] = useState<File | null>(null);
-  const [numPages, setNumPages] = useState(0);
-  const [pageWidth, setPageWidth] = useState(420);
   const [isExtracting, setIsExtracting] = useState(false);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setPageWidth(Math.min(window.innerWidth * 0.35, 520));
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   const extractPdfText = async (file: File) => {
+    const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs");
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/legacy/build/pdf.worker.min.mjs`;
+
     const arrayBuffer = await file.arrayBuffer();
 
-    const pdf = await pdfjs.getDocument({
+    const pdf = await pdfjsLib.getDocument({
       data: arrayBuffer,
     }).promise;
 
@@ -76,14 +61,14 @@ export default function Home() {
       const text = await extractPdfText(file);
       setResume(text);
     } catch (error) {
-      console.error("PDF text extraction error:", error);
-      alert("Failed to extract PDF text");
+      console.error(error);
+      alert("Failed to extract PDF text. Please paste resume text manually.");
     } finally {
       setIsExtracting(false);
     }
   };
 
-  const analyzeSkills = async () => {
+  const analyzeSkills = () => {
     if (!resume.trim()) {
       alert("Please upload resume PDF or paste resume text");
       return;
@@ -96,6 +81,13 @@ export default function Home() {
 
     const analysis = analyzeResumeSkills(resume, jd);
     setResult(analysis);
+  };
+
+  const clearAll = () => {
+    setResume("");
+    setJd("");
+    setResult(null);
+    setResumeFile(null);
   };
 
   const downloadReport = () => {
@@ -136,7 +128,7 @@ Email: amard0819@gmail.com
         <div className="text-center">
           <p className="text-blue-400 font-semibold">Free Career Tool</p>
 
-          <h1 className="text-4xl md:text-5xl font-bold mt-3">
+          <h1 className="text-4xl md:text-5xl font-bold mt-3 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
             Resume Skill Gap Analyzer
           </h1>
 
@@ -148,7 +140,7 @@ Email: amard0819@gmail.com
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6 mt-10">
-          <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+          <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl hover:border-blue-500 transition duration-300">
             <h2 className="font-semibold mb-3">Upload Resume PDF</h2>
 
             <input
@@ -166,33 +158,8 @@ Email: amard0819@gmail.com
 
             {resumeFile && (
               <p className="mb-3 text-green-400 text-sm">
-                Uploaded: {resumeFile.name}
+                ✅ Uploaded: {resumeFile.name}
               </p>
-            )}
-
-            {resumeFile && (
-              <div className="mb-5 max-h-[600px] overflow-auto rounded-xl bg-slate-950 border border-slate-800 p-4">
-                <Document
-                  file={resumeFile}
-                  onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-                  loading={<p className="text-slate-400">Loading preview...</p>}
-                  error={<p className="text-red-400">Failed to load PDF.</p>}
-                >
-                  {Array.from({ length: numPages }, (_, index) => (
-                    <div
-                      key={index}
-                      className="mb-4 flex justify-center bg-white rounded-lg p-2"
-                    >
-                      <Page
-                        pageNumber={index + 1}
-                        width={pageWidth}
-                        renderTextLayer
-                        renderAnnotationLayer
-                      />
-                    </div>
-                  ))}
-                </Document>
-              </div>
             )}
 
             <h2 className="font-semibold mb-3">Resume Text</h2>
@@ -200,16 +167,14 @@ Email: amard0819@gmail.com
             <textarea
               value={resume}
               onChange={(e) => setResume(e.target.value)}
-              rows={10}
+              rows={16}
               className="w-full p-4 rounded-xl bg-slate-950 border border-slate-700 text-white outline-none focus:border-blue-500"
               placeholder="Upload PDF or paste your resume text here..."
             />
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <div className="flex items-center justify-between gap-3 mb-3">
-              <h2 className="font-semibold">Paste Job Description</h2>
-            </div>
+          <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl hover:border-blue-500 transition duration-300">
+            <h2 className="font-semibold mb-3">Paste Job Description</h2>
 
             <div className="flex flex-wrap gap-2 mb-4">
               <button
@@ -245,20 +210,27 @@ Email: amard0819@gmail.com
             <textarea
               value={jd}
               onChange={(e) => setJd(e.target.value)}
-              rows={22}
+              rows={20}
               className="w-full p-4 rounded-xl bg-slate-950 border border-slate-700 text-white outline-none focus:border-blue-500"
               placeholder="Paste job description here..."
             />
           </div>
         </div>
 
-        <div className="text-center mt-8">
+        <div className="flex justify-center gap-4 mt-8">
           <button
             onClick={analyzeSkills}
-            disabled={isExtracting}
+            disabled={isExtracting || !resume.trim() || !jd.trim()}
             className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-700 disabled:cursor-not-allowed px-8 py-3 rounded-xl font-semibold"
           >
             {isExtracting ? "Extracting..." : "Analyze Skills"}
+          </button>
+
+          <button
+            onClick={clearAll}
+            className="bg-slate-700 hover:bg-slate-600 px-8 py-3 rounded-xl font-semibold"
+          >
+            Clear
           </button>
         </div>
 
@@ -328,6 +300,10 @@ Email: amard0819@gmail.com
         <footer className="mt-14 text-center text-slate-400">
           <p className="font-semibold text-white">Amar Deep</p>
           <p>amard0819@gmail.com</p>
+
+          <p className="mt-2 text-slate-500 text-sm">
+            Built with Next.js, TypeScript and Tailwind CSS
+          </p>
 
           <a
             href="https://digitalheroesco.com"
