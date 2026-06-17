@@ -14,7 +14,8 @@ Upload your resume PDF, compare it with a job description, and instantly discove
 
 ## 📸 Preview
 
-<img width="100%" alt="Resume Skill Gap Analyzer" src="https://via.placeholder.com/1200x600?text=Resume+Skill+Gap+Analyzer" />
+<img width="1917" height="912" alt="image" src="https://github.com/user-attachments/assets/4f96df68-9f84-4c6f-847b-cf7bfb527462" />
+<img width="1897" height="910" alt="image" src="https://github.com/user-attachments/assets/bd95ed97-c04b-4b45-b7bf-481c0945c164" />
 
 ---
 
